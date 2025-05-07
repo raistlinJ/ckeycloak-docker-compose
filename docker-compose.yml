@@ -1,0 +1,23 @@
+verion: '3.8'
+services: 
+  keycloak:
+    image: quay.io/keycloak/keycloak:latest
+    ports:
+      - "443:8443"
+    environment:
+      KEYCLOAK_ADMIN: admin
+      KEYCLOAK_ADMIN_PASSWORD: admin_pass_changeme
+      KC_HOSTNAME_STRICT_HTTPS: "false"
+      KC_HOSTNAME_STRICT: "false"
+      KC_HTTPS_CERTIFICATE_FILE: /etc/x509/httpd/self.cert
+      KC_HTTPS_CERTIFICATE_KEY_FILE: /etc/x509/httpd/self-ssl.key
+      KC_HOSTNAME: "hostname"
+      KC_HOSTNAME_URL: "hostname.hostname:8443"
+      KC_HTTP_ENABLED: "false"
+    volumes:
+      - ./conf/certs:/etc/x509/https
+    command:
+    - start
+    - --import-realm
+
+
